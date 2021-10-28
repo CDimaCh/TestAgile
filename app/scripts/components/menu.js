@@ -25,7 +25,7 @@ class Menu extends React.Component {
             error: null,
         }
     }
-
+    //call data for component(all products)
     componentDidMount(){
         axios.get(API + DEFAULT_QUERY)
             .then(result => this.setState({
@@ -57,19 +57,18 @@ class Menu extends React.Component {
      * @param e [Object] - the event from a text change handler
      */
     onSearch(e) {
-        //e.preventDefault();
+        //here is possible to add preloader
         this.setState({ isLoading: true });
  
-        // Start Here
-        // ...
-        
-        this.setState({searchField:e.target.value})
-
+        //filter card by name 
         let filteredCards = this.state.cards.filter(card =>(
             card.name.toLowerCase().includes(e.target.value.toLowerCase())
         ))
+        //store filtered cards
         this.setState({filteredCards:filteredCards})
-
+        //store value of input
+        this.setState({searchField:e.target.value})
+        //callback to pass cards to parent component
         this.props.parentCallback(filteredCards);
     }
 
